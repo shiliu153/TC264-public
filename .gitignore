@@ -1,0 +1,24 @@
+# 构建产物（Eclipse/ADS 自动生成；Debug/user/subdir.mk 含个人绝对路径，必须排除）
+Debug/
+*.d
+*.o
+*.elf
+*.hex
+*.map
+*.opt
+
+# IDE 与工具（注意：.settings/ 必须保留——含 ADS 器件配置与编码规则）
+.ads/
+.vscode/
+.claude/
+.codegraph/
+.mcp.json
+
+# Python（上位机）
+__pycache__/
+*.pyc
+
+# 内部材料
+docs/superpowers/
+.remember/
+CLAUDE.md

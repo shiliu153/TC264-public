@@ -1,0 +1,67 @@
+/*
+ *  函数名称：pid
+ *  功能说明：通用 PID 结构体定义（仅结构体，不提供计算函数）
+ *  参数说明：无
+ *  函数返回：无
+ *  备注信息：具体 PID/PI/PD 计算由用户自行实现
+ */
+
+#ifndef _code_pid_h_
+#define _code_pid_h_
+
+#include "zf_common_typedef.h"
+
+typedef struct
+{
+    float kp;
+    float ki;
+    float kd;
+
+    float integ;
+
+    float error;
+    float last_error;
+} PID;
+
+//-------------------------------------------------------------------------------------------------------------------
+// 函数简介     PID 参数初始化
+// 参数说明     pid             PID 结构体指针
+// 参数说明     kp              比例系数
+// 参数说明     ki              积分系数
+// 参数说明     kd              微分系数
+// 返回参数     void
+// 使用示例     pid_init(&pid, 10.0f, 0.0f, 0.0f);
+// 备注信息     外部调用
+//-------------------------------------------------------------------------------------------------------------------
+void pid_init(PID* pid, float kp, float ki, float kd);
+
+//-------------------------------------------------------------------------------------------------------------------
+// 函数简介     浮点限幅
+// 参数说明     input           输入值
+// 参数说明     min             最小值
+// 参数说明     max             最大值
+// 返回参数     float           限幅后的结果
+// 使用示例     clamp(x, -1.0f, 1.0f);
+// 备注信息     外部调用
+//-------------------------------------------------------------------------------------------------------------------
+static inline float clamp(float input, float min, float max)
+{
+    if (min > max)
+    {
+        float temp = min;
+        min = max;
+        max = temp;
+    }
+    
+    if (input < min )
+    {
+        return min;
+    }
+    else if (input > max)
+    {
+        return max;
+    }
+    return input;
+}
+
+#endif
